@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConsoleApplication13
+namespace iSqlCmd
 {
     public static class Extensions
     {

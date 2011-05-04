@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace ConsoleApplication13
+namespace iSqlCmd
 {
     public class LoginDetails : IDisposable
     {

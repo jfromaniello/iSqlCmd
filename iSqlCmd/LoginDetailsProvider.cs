@@ -1,7 +1,6 @@
 using System;
-using NDesk.Options;
 
-namespace ConsoleApplication13
+namespace iSqlCmd
 {
     public class LoginDetailsProvider
     {

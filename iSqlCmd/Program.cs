@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace ConsoleApplication13
+namespace iSqlCmd
 {
     class Program
     {
@@ -16,7 +16,14 @@ namespace ConsoleApplication13
                 while (true)
                 {
                     var query = GetSqlLines();
+                    if(query == ":clear")
+                    {
+                        Console.Clear();
+                        continue;
+                    }
+                    query = query.StartsWith(":") ? ShortcutTranslator.Translate(query) : query;
                     executor.Execute(query);
+                    Console.WriteLine();
                 }    
             }
         }
@@ -29,7 +36,7 @@ namespace ConsoleApplication13
                                     Console.Write("{0}> ", i);
                                     return Console.ReadLine();
                                 })
-                      .TakeUntil(s => s == null || s.EndsWith(";"))
+                      .TakeUntil(s => s == null || s.EndsWith(";") || s.StartsWith(":"))
                       .ToArray();
             return string.Join(Environment.NewLine, lines);
         }

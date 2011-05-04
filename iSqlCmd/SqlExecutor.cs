@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 
-namespace ConsoleApplication13
+namespace iSqlCmd
 {
     public class SqlExecutor
     {
@@ -31,17 +31,22 @@ namespace ConsoleApplication13
                 {
                     using (var reader = command.ExecuteReader())
                     {
-                        if(reader.RecordsAffected > 0)
+                       
+                        var headers = GetHeaders(reader);
+                        if (!string.IsNullOrEmpty(headers))
+                        {
+                            writer.WriteLine(headers);
+                            writer.WriteLine(new string('-', headers.Length));
+                            var rowCount = WriteRows(reader);
+                            writer.WriteLine("Row count: {0}", rowCount);
+                        }
+
+                        
+                        
+                        if (reader.RecordsAffected > 0)
                         {
                             writer.WriteLine("{0} records affected.", reader.RecordsAffected);
                         }
-
-                        var headers = GetHeaders(reader);
-                        if (string.IsNullOrEmpty(headers)) return;
-                        writer.WriteLine(headers);
-                        writer.WriteLine(new string('-', headers.Length));
-                        WriteRows(reader);
-
                     }
                 }
                 catch (SqlException ex)
@@ -52,18 +57,22 @@ namespace ConsoleApplication13
             }
         }
 
-        private void WriteRows(SqlDataReader reader)
+        private int WriteRows(SqlDataReader reader)
         {
             if (reader.HasRows)
             {
+                int rowCount = 0;
                 var schema = reader.GetSchemaTable();
                 while (reader.Read())
                 {
+                    rowCount++;
                     var fields = Enumerable.Range(0, reader.FieldCount)
                               .Select(i => GetPaddedValue(reader, schema, i));
                     writer.WriteLine(string.Join(" ", fields));
                 }
+                return rowCount;
             }
+            return 0;
         }
 
         private string GetPaddedValue(IDataRecord reader, DataTable schema, int fieldIndex)
