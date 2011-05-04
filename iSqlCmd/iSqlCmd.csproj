@@ -8,8 +8,8 @@
     <ProjectGuid>{901AD3B4-079A-4034-8DC2-383D17AB7F93}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApplication13</RootNamespace>
-    <AssemblyName>ConsoleApplication13</AssemblyName>
+    <RootNamespace>iSqlCmd</RootNamespace>
+    <AssemblyName>iSqlCmd</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
